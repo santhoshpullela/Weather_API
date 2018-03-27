@@ -1,0 +1,1382 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{WeatherPy}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Observed Trends:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The closer a city is to the equator (a lower absolute value of
+  latitude), the higher the temperature of the city is.
+\item
+  Surprisingly, the humidity in a city does not have a strong correlate
+  with the temperature or latitude. Cities across the entire latitude
+  range have similar humidity levels. This observation applies to the
+  cloudiness percentage for each city, and for the wind speed for each
+  city.
+\item
+  However, the highest wind speeds appeared farthest away from the
+  equator, and those cities approximately 20 degrees North or South of
+  the equator had the lowest humidity percentages.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Dependencies}
+        \PY{k+kn}{import} \PY{n+nn}{csv}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{requests}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{openweathermapy}\PY{n+nn}{.}\PY{n+nn}{core} \PY{k}{as} \PY{n+nn}{owm}
+        \PY{k+kn}{from} \PY{n+nn}{citipy} \PY{k}{import} \PY{n}{citipy}
+        \PY{k+kn}{from} \PY{n+nn}{pprint} \PY{k}{import} \PY{n}{pprint}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        
+        
+        \PY{c+c1}{\PYZsh{}API config key}
+        \PY{k+kn}{from} \PY{n+nn}{config} \PY{k}{import} \PY{n}{api\PYZus{}key}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Create latitudes and longitudes}
+        
+        \PY{n}{latitude} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{2000}\PY{p}{)} \PY{c+c1}{\PYZsh{} Random list of 2000 items with a range of \PYZhy{}90 to +90}
+        \PY{n}{longitude} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{180}\PY{p}{,}\PY{l+m+mi}{180}\PY{p}{,}\PY{l+m+mi}{2000}\PY{p}{)} \PY{c+c1}{\PYZsh{} Random list of 2000 items with a range of \PYZhy{}180 + 180}
+        
+        \PY{c+c1}{\PYZsh{}print (latitude)}
+        \PY{c+c1}{\PYZsh{}print (longitude)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Create initial Cities Dataframe for 10 Latitudes and Longitudes}
+        \PY{n}{city\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{latitude}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Longitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{longitude}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}     Latitude   Longitude
+        0 -66.077809   88.290853
+        1  52.356347   69.975055
+        2 -21.543343   42.959799
+        3  83.597567 -109.241022
+        4  55.723040   93.307338
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Add additional columns Cities, Temperature, Humidity, Cloudiness and Wind Speed to city\PYZus{}df }
+        \PY{c+c1}{\PYZsh{} Note that we used \PYZdq{}\PYZdq{} to specify initial entry.}
+        
+        \PY{n}{city\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{City}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{city\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Country Code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{city\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{city\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cloudiness}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{city\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wind Speed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{city\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Humidity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+        \PY{c+c1}{\PYZsh{}city\PYZus{}df[\PYZdq{}URL\PYZdq{}] = \PYZdq{}\PYZdq{}}
+        \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}     Latitude   Longitude City Country Code Temperature Cloudiness Wind Speed  \textbackslash{}
+        0 -66.077809   88.290853                                                       
+        1  52.356347   69.975055                                                       
+        2 -21.543343   42.959799                                                       
+        3  83.597567 -109.241022                                                       
+        4  55.723040   93.307338                                                       
+        
+          Humidity  
+        0           
+        1           
+        2           
+        3           
+        4           
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Pull the values of Cities for each Latitude and Longitude and append those values in the City column}
+        \PY{c+c1}{\PYZsh{} Loop through the city\PYZus{}df and run a latitude/longitude search for each city and its respective country code,}
+        \PY{c+c1}{\PYZsh{} and append the corresponding values}
+        
+        \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{latitude} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{longitude} \PY{o}{=} \PY{n}{row} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Longitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            
+            \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{City}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{citipy}\PY{o}{.}\PY{n}{nearest\PYZus{}city}\PY{p}{(}\PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{)}\PY{o}{.}\PY{n}{city\PYZus{}name}\PY{p}{)}
+            \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Country Code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{citipy}\PY{o}{.}\PY{n}{nearest\PYZus{}city}\PY{p}{(}\PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{)}\PY{o}{.}\PY{n}{country\PYZus{}code}\PY{p}{)}
+        
+        \PY{n}{city\PYZus{}df} \PY{o}{=} \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{City}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Country Code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{keep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}santo\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}PythonData\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:9: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+  if \_\_name\_\_ == '\_\_main\_\_':
+C:\textbackslash{}Users\textbackslash{}santo\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}PythonData\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:10: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+  \# Remove the CWD from sys.path while we load stuff.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Construct the base url to pull the information from openweatherapi}
+        \PY{c+c1}{\PYZsh{}base\PYZus{}url = \PYZdq{}http://api.openweathermap.org/data/2.5/weather\PYZdq{}}
+        \PY{n}{base\PYZus{}url} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://api.openweathermap.org/data/2.5/weather?units=Imperial}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Loop through the city\PYZus{}df and call the target url to pull the required information}
+        \PY{c+c1}{\PYZsh{} Print Retrieving Information and Log}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Beginning Data Retrieval}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{city} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{City}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{country} \PY{o}{=} \PY{n}{row} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Country Code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{city\PYZus{}country} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{city}\PY{p}{)}\PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{country}\PY{p}{)}
+            
+            \PY{k}{try}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}current\PYZus{}weather = owm.get\PYZus{}current(city\PYZus{}country, **settings)}
+                \PY{n}{current\PYZus{}weather\PYZus{}url} \PY{o}{=} \PY{n}{base\PYZus{}url} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZam{}appid=}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{api\PYZus{}key} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZam{}q=}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{city\PYZus{}country}
+                \PY{n}{current\PYZus{}weather} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{current\PYZus{}weather\PYZus{}url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb}{print} \PY{p}{(}\PY{n}{current\PYZus{}weather\PYZus{}url}\PY{p}{)}
+                        
+                \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{current\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{main}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Humidity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{current\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{main}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{humidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cloudiness}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{current\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clouds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wind Speed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{current\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}city\PYZus{}df.set\PYZus{}value(index, \PYZdq{}URL\PYZdq{}, current\PYZus{}weather\PYZus{}url)}
+           
+            \PY{k}{except}\PY{p}{:}
+                \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No Data from API}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Humidity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No Data from API}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cloudiness}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No Data from API}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wind Speed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No Data from API}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}city\PYZus{}df.set\PYZus{}value(index, \PYZdq{}URL\PYZdq{}, \PYZdq{}No Data from API\PYZdq{})}
+                \PY{c+c1}{\PYZsh{}print(\PYZdq{}No Data found\PYZdq{})}
+                
+        
+        \PY{n}{city\PYZus{}df} \PY{o}{=} \PY{n}{city\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{City}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Country Code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Longitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Humidity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cloudiness}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wind Speed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+        
+        \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Beginning Data Retrieval
+------------------------
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=busselton,au
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}santo\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}PythonData\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:17: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+C:\textbackslash{}Users\textbackslash{}santo\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}PythonData\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:18: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+C:\textbackslash{}Users\textbackslash{}santo\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}PythonData\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:19: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+C:\textbackslash{}Users\textbackslash{}santo\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}PythonData\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:20: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=makinsk,kz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ankazoabo,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yellowknife,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=zykovo,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=severo-kurilsk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sentyabrskiy,ru
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}santo\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}PythonData\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:24: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+C:\textbackslash{}Users\textbackslash{}santo\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}PythonData\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:25: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+C:\textbackslash{}Users\textbackslash{}santo\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}PythonData\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:26: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+C:\textbackslash{}Users\textbackslash{}santo\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}PythonData\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:27: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=victoria,sc
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=arraial do cabo,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yerbogachen,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cherskiy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lensk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=severnyy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ushuaia,ar
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=rikitea,pf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bredasdorp,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=saskylakh,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ribeira grande,pt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vaini,to
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=iquitos,pe
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=port pirie,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nuqui,co
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=voyvozh,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kapaa,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kavaratti,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=rawson,ar
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bluff,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=broken hill,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=alofi,nu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kyabram,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mahebourg,mu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tiksi,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sorvag,fo
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=te anau,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=new norfolk,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=faanui,pf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=jiuquan,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=touros,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=alyangula,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ahipara,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=albany,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=puerto escondido,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=taolanaro,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ilebo,cd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cidreira,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=castro,cl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=alta gracia,ar
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=airai,pw
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=punta arenas,cl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vredendal,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=rairangpur,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kavieng,pg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=carutapera,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hilo,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tacna,pe
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=avarua,ck
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=anadyr,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=puerto ayora,ec
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bethel,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=wamba,cd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=provideniya,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=torbay,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=atuona,pf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=esperance,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sitka,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vila franca do campo,pt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=surgut,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=manggar,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hermanus,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nizhneyansk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=qaanaaq,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=baruun-urt,mn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=marzuq,ly
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yulara,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=barrow,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tumannyy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sao joao da barra,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=barentsburg,sj
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=natal,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=carnarvon,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=toliary,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=saint-philippe,re
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=georgetown,sh
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=riviere-au-renard,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=butaritari,ki
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=attawapiskat,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=belushya guba,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vardo,no
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kaitangata,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=chuy,uy
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=morgantown,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ponta do sol,cv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=norman wells,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=chokurdakh,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bonavista,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=husavik,is
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=puerto pinasco,py
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hobart,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=aswan,eg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sao felix do xingu,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=college,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=urumqi,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vila velha,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=diffa,ne
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mataura,pf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tsihombe,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=doha,kw
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=port alfred,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=roald,no
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=leshukonskoye,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=camabatela,ao
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lagoa,pt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=moju,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tikaitnagar,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=luau,ao
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=la palma,pa
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tayoltita,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=clyde river,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=abilene,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mehamn,no
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kapustin yar,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=amderma,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ucluelet,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kedrovyy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=alta floresta,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=gat,ly
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cape town,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=codrington,ag
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=salta,ar
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=raposa,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nikolskoye,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=moissac,fr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=fairbanks,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lufilufi,ws
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=solnechnyy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=seybaplaya,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=balkhash,kz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vilyuysk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=labuan,my
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pevek,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sibu,my
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=caravelas,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=male,mv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=souillac,mu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=port elizabeth,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=imbituba,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pangody,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=geraldton,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=banda aceh,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=khatanga,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kudymkar,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hithadhoo,mv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yankton,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ixtapa,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tire,tr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dikson,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=salalah,om
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=laredo,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=coquimbo,cl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=palafrugell,es
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=longyearbyen,sj
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=adrar,dz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=batagay-alyta,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hudson bay,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=jamestown,sh
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=saint anthony,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tilichiki,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=neyshabur,ir
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kristianstad,se
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ngukurr,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pemberton,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mys shmidta,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=illoqqortoormiut,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bratsk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tatishchevo,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=chippewa falls,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hailey,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=zakamensk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=el faiyum,eg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tobermory,gb
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=namatanai,pg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=portland,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=grand river south east,mu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=upernavik,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hasaki,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kloulklubed,pw
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kenai,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=aflu,dz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=maine-soroa,ne
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lolua,tv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=grand gaube,mu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=umzimvubu,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lompoc,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kumano,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tibati,cm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dzaoudzi,yt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vaitupu,wf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tasiilaq,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kirakira,sb
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=acapulco,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=port lincoln,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=east london,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sao filipe,cv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=padang,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yelizovo,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lethem,gy
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=namibe,ao
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=glenwood springs,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hunza,pk
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=thompson,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ambilobe,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=douglas,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mabaruma,gy
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tuktoyaktuk,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=waingapu,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ekhabi,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=povenets,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=maningrida,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=plettenberg bay,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=avera,pf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pacifica,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=faya,td
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bay roberts,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=moree,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=meulaboh,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=impfondo,cg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hirara,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=san patricio,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sabang,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=barawe,so
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=morro bay,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mingshui,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=paamiut,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kodiak,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=salerno,it
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=champerico,gt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=krasnoselkup,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bolungarvik,is
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=samusu,ws
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hofn,is
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bathsheba,bb
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=chicama,pe
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sorland,no
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dilla,et
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=qom,ir
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hurghada,eg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dabat,et
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=the pas,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=saint-esteve,fr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cayenne,gf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=iqaluit,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=amiens,fr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=santa ana,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pamekasan,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sabang,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=chingola,zm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=zhezkazgan,kz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=riohacha,co
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tsiroanomandidy,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=amga,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mar de espanha,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=puerto baquerizo moreno,ec
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sioux lookout,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=enniskerry,ie
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=saldanha,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=klaksvik,fo
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kruisfontein,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=olivet,fr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=makokou,ga
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=rocha,uy
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nikki,bj
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sebinkarahisar,tr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=santa cruz,cr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=preobrazheniye,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=shetpe,kz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yei,sd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=leningradskiy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=taicheng,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=umarga,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=manokwari,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ancud,cl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=charters towers,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=beloha,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=olafsvik,is
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kitimat,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=westport,ie
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=samarai,pg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=les cayes,ht
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dingle,ie
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=eyl,so
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=louisbourg,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=temaraia,ki
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pavlodar,kz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=wa,gh
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=rungata,ki
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=angoche,mz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=de aar,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ust-nera,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=chama,zm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cedar city,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=jiaozhou,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=jaru,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lorengau,pg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=jumla,np
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bosaso,so
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=oranjemund,na
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=arlit,ne
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=talnakh,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=clarence town,bs
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dicabisagan,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=richards bay,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dalianwan,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=chimbote,pe
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=grindavik,is
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ketchikan,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=melton,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=port-cartier,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hamilton,bm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=jharsuguda,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=erzin,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sumbawa,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=poum,nc
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=zhicheng,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=qaqortoq,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=coihaique,cl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kuliyapitiya,lk
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=balimo,pg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=amudat,ug
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=luderitz,na
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=grand centre,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lebu,cl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cabo san lucas,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pisco,pe
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=shimoda,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=itarema,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ryotsu,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nabire,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kralendijk,an
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=saleaula,ws
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=camacha,pt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=fortuna,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ardistan,ir
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dabhol,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=luena,ao
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tucuma,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kamloops,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=zalantun,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mantua,cu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=karasjok,no
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dinajpur,bd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mar del plata,ar
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=constitucion,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lipin bor,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sola,vu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=montes altos,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=warqla,dz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hun,ly
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=jiamusi,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bambous virieux,mu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=aksarka,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=atar,mr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=zhanatas,kz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=port-gentil,ga
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bengkulu,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pitimbu,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ngunguru,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bilma,ne
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=indramayu,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=stykkisholmur,is
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=naze,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=milazzo,it
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=luxor,eg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=elliot lake,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kolyvan,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=aljezur,pt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=apastovo,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=guerande,fr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=boende,cd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=constitucion,cl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=riyadh,sa
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=touba,ci
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kahului,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=salinas,ec
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nanortalik,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=maridi,sd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=san cristobal,ec
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ilulissat,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=palabuhanratu,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dany,hu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=komsomolskiy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kita,ml
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mala,pe
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=maceio,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=outlook,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=marcona,pe
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=babanusah,sd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=shiyan,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=narsaq,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tual,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mukhen,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bac lieu,vn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kousseri,cm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=poli,cm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=smithers,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=letlhakane,bw
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=barda,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=fort portal,ug
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=port blair,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dzerzhinskoye,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hiroshima,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=porto novo,cv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=coria del rio,es
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=huarmey,pe
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=wanaka,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=buariki,ki
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pozo colorado,py
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=itoman,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dunedin,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=emerald,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=carroll,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=solnechnogorsk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vestmanna,fo
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kulhudhuffushi,mv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=port hedland,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=armenion,gr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=honiara,sb
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=beira,mz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=praya,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=seminole,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=braine-le-comte,be
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hailar,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=aklavik,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=metro,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vanavara,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=snezhnogorsk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=zyryanka,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mount gambier,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yumen,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=klyuchi,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=alcaniz,es
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sisimiut,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=deputatskiy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hirtshals,dk
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=burnie,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=oum hadjer,td
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=enkhuizen,nl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tuatapere,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ascension,bo
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ferreira do alentejo,pt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=aasiaat,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pita,gn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=beisfjord,no
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=terney,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=milevsko,cz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=along,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=buba,gw
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=santa fe,cu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=jinxiang,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hinton,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ugoofaaru,mv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sorong,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=saint george,bm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kasangulu,cd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mokshan,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=manakara,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hauterive,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=thinadhoo,mv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sabzevar,ir
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lasa,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=russell,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=novopavlovka,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=callaguip,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=broome,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=belyy yar,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=west plains,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=namwala,zm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dekoa,cf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=moron,mn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=northam,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=carlibaba,ro
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bemidji,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=guerrero,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kikwit,cd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=amapa,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=loa janan,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pangnirtung,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vestmannaeyjar,is
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=verdun,fr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=abha,sa
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=idio,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vilhena,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=riberalta,bo
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=haibowan,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mwanza,mw
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=abonnema,ng
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pierre,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sabha,ly
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ikalamavony,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=uray,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=coos bay,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=santa cruz de la palma,es
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=newport,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=do gonbadan,ir
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nosy varika,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kalmanka,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=puerto maldonado,pe
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=makat,kz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=grand-santi,gf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tsabong,bw
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=deer lake,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vila do maio,cv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yakima,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=seymchan,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tripoli,ly
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=omboue,ga
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kure,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=basqal,az
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=zinder,ne
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=maniitsoq,gl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pedasi,pa
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=harper,lr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sur,om
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=maxixe,mz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=araguacu,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=prata,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=butzow,de
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=syracuse,it
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=katsuura,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=atasu,kz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kozan,tr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vitoria da conquista,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=north bend,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=biryusinsk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mahenge,tz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=general jose eduvigis diaz,py
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mackay,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sindor,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=belle fourche,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=darnetal,fr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=buchmany,ua
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=malindi,ke
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=aripuana,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=taoudenni,ml
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=beringovskiy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ponta delgada,pt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bafoulabe,ml
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nemuro,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mocuba,mz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=santiago del estero,ar
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=altamira,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=olinda,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=amahai,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=damietta,eg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=praia da vitoria,pt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=egvekinot,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yar-sale,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=batagay,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=la carlota,es
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=baykit,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bowen,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=slobozia-ciorasti,ro
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pombas,cv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kilindoni,tz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=wanning,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=gijon,es
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=gawler,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=saint-francois,gp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ikot ekpene,ng
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kibala,ao
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=teneguiban,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=jiaozuo,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nova olimpia,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tombouctou,ml
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bossangoa,cf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ouadda,cf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=siljan,no
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kamenskoye,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dudinka,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kieta,pg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=palana,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=asau,tv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sibolga,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=san policarpo,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=trento,it
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ternate,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kanigiri,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=semiletka,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=rolim de moura,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=abalak,ne
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=poronaysk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=san zenon,co
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cap malheureux,mu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=haines junction,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=makakilo city,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=redcar,gb
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=boyolangu,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=santa maria,cv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=saint-paul,re
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kaeo,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=saryshagan,kz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=turbat,pk
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lebowakgomo,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=khani,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sibut,cf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cheuskiny,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=karpogory,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sturgeon bay,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hovd,mn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ocos,gt
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lata,sb
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=guadalupe y calvo,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=novaya igirma,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ceres,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sinnamary,gf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=khuzdar,pk
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=maltahohe,na
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bereda,so
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bonfim,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ballina,ie
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=goundam,ml
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cockburn harbour,tc
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=half moon bay,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nolinsk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=chifeng,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kaseda,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yamada,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=schoneiche,de
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ruatoria,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=maumere,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=duz,tn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=murwara,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kirando,tz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=moranbah,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=zhigansk,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=luyang,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=neuquen,ar
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=miri,my
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=koulikoro,ml
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=slave lake,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=gushikawa,jp
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=manaure,co
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=takoradi,gh
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=excelsior springs,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=awash,et
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tiszavasvari,hu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=brighton,gb
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=phuket,th
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tigil,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=taburi,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=karratha,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kiknur,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cururupu,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=stende,lv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hualmay,pe
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=urgut,uz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=savelugu,gh
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ghatal,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kurinjippadi,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=champua,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vao,nc
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kalmar,se
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=hastings,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=taiyuan,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=sept-iles,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=xiaoweizhai,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tahta,eg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=labuhan,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=imeni poliny osipenko,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ambanja,mg
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=puerto madryn,ar
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=auki,sb
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=chute-aux-outardes,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=skiros,gr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=shelburne,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=karaul,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=batetskiy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=arona,es
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=muisne,ec
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=jalu,ly
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=coolum beach,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=eureka,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=oktyabrskiy,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=rodez,fr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=pundaguitan,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=denpasar,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tevriz,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dargaville,nz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=zharkent,kz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=masaguisi,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bedele,et
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=dwarka,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tautira,pf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=netrakona,bd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=libourne,fr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kushva,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=novosergiyevka,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=isangel,vu
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kochubey,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=los llanos de aridane,es
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=guntakal,in
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=uinskoye,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=loralai,pk
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bolshiye uki,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=san miguelito,ni
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tarauaca,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=loganville,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=almenara,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tabiauea,ki
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=weston,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=wheeling,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=taujica,hn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=petropavlovka,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tura,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=the valley,ai
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=koslan,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=lieksa,fi
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=buon me thuot,vn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=yeppoon,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=palmer,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=beitbridge,zw
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bria,cf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=galesong,id
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=nome,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=bargal,so
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tala,mx
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=turayf,sa
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=prince rupert,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=luanda,ao
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=oktyabrskoye,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=avon lake,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=gigmoto,ph
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=soyo,ao
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=scottsburgh,za
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kyra,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=aldan,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tabarqah,tn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=poroschia,ro
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kawana waters,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=constantine,dz
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vallenar,cl
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vaitape,pf
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ndola,zm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=brae,gb
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=cockburn town,tc
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=khasan,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=gardan diwal,af
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=la tuque,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kabompo,zm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=axim,gh
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mayumba,ga
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=salym,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=labutta,mm
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=ardmore,us
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=naifaru,mv
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=tuusula,fi
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=santa luzia,br
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=buchanan,lr
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=fort nelson,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=umm kaddadah,sd
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=chiang rai,th
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=handan,cn
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=fort saint john,ca
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=vostok,ru
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=atherton,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=mildura,au
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=darab,ir
+http://api.openweathermap.org/data/2.5/weather?units=Imperial\&appid=f9e78d5d8d0cd58dc8681b261670a924\&q=kongwa,tz
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}           City Country Code   Latitude   Longitude Temperature Humidity  \textbackslash{}
+        0    busselton           au -66.077809   88.290853       62.98      100   
+        1      makinsk           kz  52.356347   69.975055        24.1       85   
+        2    ankazoabo           mg -21.543343   42.959799       87.37       34   
+        3  yellowknife           ca  83.597567 -109.241022      -14.81       75   
+        4       zykovo           ru  55.723040   93.307338       24.64       89   
+        
+          Cloudiness Wind Speed  
+        0         44       9.64  
+        1          0      14.67  
+        2          8       9.53  
+        3         90       3.36  
+        4         92      16.35  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{city\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{constructed\PYZus{}city\PYZus{}df.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Clean the constructed data frame without \PYZdq{}No Data from API\PYZdq{}}
+        \PY{n}{city\PYZus{}df\PYZus{}clean} \PY{o}{=} \PY{n}{city\PYZus{}df}\PY{p}{[}\PY{n}{city\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{!=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No Data from API}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{n}{city\PYZus{}df\PYZus{}clean}
+        \PY{n}{city\PYZus{}df\PYZus{}clean}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{city\PYZus{}df\PYZus{}clean.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Checking the data types for our dataframe}
+         \PY{c+c1}{\PYZsh{}City\PYZus{}Df\PYZus{}Filter.dtypes}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Build a scatter plot for Temperature (F) vs. Latitude}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{city\PYZus{}df\PYZus{}clean}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{city\PYZus{}df\PYZus{}clean}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{o}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aqua}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Incorporate the other graph properties}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{City Latitude vs Temperature (World Cities)}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature (Farenheit)}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{fontsize}\PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{fig\PYZus{}size} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{fig\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{20} 
+         \PY{n}{fig\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{9}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fig\PYZus{}size}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Images/LatitudeVsTemperature.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Build a scatter plot for Humidity (F) vs. Latitude}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{city\PYZus{}df\PYZus{}clean}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{city\PYZus{}df\PYZus{}clean}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Humidity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{o}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aqua}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Incorporate the other graph properties}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{City Latitude vs Humidity (World Cities)}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature (Farenheit)}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{fontsize}\PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{fig\PYZus{}size} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{fig\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{18} 
+         \PY{n}{fig\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{9}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fig\PYZus{}size}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Images/LatitudeVsHumidity.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Build a scatter plot for Cloudiness vs. Latitude}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{city\PYZus{}df\PYZus{}clean}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{city\PYZus{}df\PYZus{}clean}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cloudiness}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{o}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aqua}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Incorporate the other graph properties}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{City Latitude vs Cloudiness (World Cities)}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature (Farenheit)}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{fontsize}\PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{fig\PYZus{}size} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{fig\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{18} 
+         \PY{n}{fig\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{9}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fig\PYZus{}size}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Images/LatitudeVsCloudiness.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Build a scatter plot for Wind Speed vs. Latitude}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{city\PYZus{}df\PYZus{}clean}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{city\PYZus{}df\PYZus{}clean}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wind Speed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{o}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aqua}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Incorporate the other graph properties}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{City Latitude vs Wind Speed (World Cities)}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature (Farenheit)}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{fontsize}\PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{fig\PYZus{}size} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{fig\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{18} 
+         \PY{n}{fig\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{9}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fig\PYZus{}size}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Images/LatitudeVsWindspeed.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
